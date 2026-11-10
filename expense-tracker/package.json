@@ -1,0 +1,9 @@
+{
+  "name": "personal-expense-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A single-user INR expense tracker with atomic JSON persistence",
+  "engines": { "node": ">=22" },
+  "scripts": { "start": "node server.js", "verify": "node scripts/verify.js" },
+  "dependencies": { "express": "^5.1.0" }
+}

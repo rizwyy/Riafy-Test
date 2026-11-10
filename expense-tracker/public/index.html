@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#245b46">
+  <title>Expense tracker</title>
+  <link rel="icon" href="data:,">
+  <link rel="preload" href="/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><div class="brand"><span class="brand-icon" aria-hidden="true">₹</span> Expense tracker</div><span class="topbar-note">A little clarity for your everyday spending.</span></header>
+  <main>
+    <div class="page-heading"><div><p class="eyebrow">YOUR MONEY, AT A GLANCE</p><h1>Make every rupee count.</h1><p class="muted">Keep track of the small things. See the bigger picture.</p></div><span class="currency-tag">INR · ₹</span></div>
+    <section class="summary panel" aria-labelledby="summary-heading" aria-busy="true" id="summary">
+      <div class="summary-total"><p class="eyebrow" id="summary-heading">THIS MONTH</p><h2 id="month-label">Monthly spending</h2><p id="month-total" class="total">—</p><p class="summary-hint">All expenses this month, regardless of filters.</p></div>
+      <div id="category-summary" class="category-summary"></div>
+    </section>
+    <div id="status" class="message" role="status" aria-live="polite" hidden></div>
+    <div class="workspace">
+      <section class="panel expense-form-panel" aria-labelledby="form-heading">
+        <div class="section-heading"><div><p class="eyebrow">THE EVERYDAY DETAILS</p><h2 id="form-heading">Add an expense</h2></div><span class="plus-mark" aria-hidden="true">+</span></div>
+        <form id="expense-form" novalidate>
+          <p class="form-hint">All fields are required except the note.</p>
+          <label for="title">Title</label><input id="title" name="title" placeholder="e.g. Lunch with friends" required aria-describedby="title-error"><span class="field-error" id="title-error"></span>
+          <div class="form-row"><div><label for="amount">Amount (₹)</label><input id="amount" name="amount" type="number" inputmode="decimal" min="0.01" step="0.01" placeholder="0.00" required aria-describedby="amount-error"><span class="field-error" id="amount-error"></span></div><div><label for="category">Category</label><select id="category" name="category" required aria-describedby="category-error"><option value="">Choose category</option><option>Food</option><option>Transport</option><option>Shopping</option><option>Bills</option><option>Entertainment</option><option>Other</option></select><span class="field-error" id="category-error"></span></div></div>
+          <label for="date">Date</label><input id="date" name="date" type="date" min="0001-01-01" max="9999-12-31" required aria-describedby="date-error"><span class="field-error" id="date-error"></span>
+          <label for="note">Note <span class="optional">optional</span></label><textarea id="note" name="note" rows="3" placeholder="Anything you’d like to remember" aria-describedby="note-error"></textarea><span class="field-error" id="note-error"></span>
+          <div id="form-error" class="message error" role="alert" hidden></div>
+          <div class="form-actions"><button id="save-button" class="primary" type="submit">Add Expense</button><button id="cancel-button" class="secondary" type="button" hidden>Cancel</button></div>
+        </form>
+      </section>
+      <section class="panel records-panel" aria-labelledby="list-heading">
+        <div class="section-heading"><div><p class="eyebrow">YOUR SPENDING HISTORY</p><h2 id="list-heading">Expenses <span id="expense-count" class="count"></span></h2></div><button id="retry-button" class="text-button" type="button">Refresh</button></div>
+        <form id="filter-form" class="filters" novalidate>
+          <div class="filter-search"><label for="filter-title">Search title</label><input id="filter-title" name="title" type="search" placeholder="Search expenses…"></div>
+          <div><label for="filter-category">Category</label><select id="filter-category" name="category"><option value="">All Categories</option><option>Food</option><option>Transport</option><option>Shopping</option><option>Bills</option><option>Entertainment</option><option>Other</option></select></div>
+          <div><label for="filter-from">From date</label><input id="filter-from" name="from" type="date" min="0001-01-01" max="9999-12-31"></div>
+          <div><label for="filter-to">To date</label><input id="filter-to" name="to" type="date" min="0001-01-01" max="9999-12-31"></div>
+          <div class="filter-actions"><button class="secondary" type="submit">Apply Filters</button><button class="text-button" id="clear-filters" type="button">Clear Filters</button></div>
+        </form>
+        <div id="filter-error" class="message error" role="alert" hidden></div>
+        <p id="list-state" class="list-state" role="status">Loading expenses…</p>
+        <div id="expense-list" aria-busy="true"></div>
+      </section>
+    </div>
+    <footer>Simple records. Clearer decisions.<span>Saved on this server · Single-user workspace</span></footer>
+  </main>
+</body>
+</html>
